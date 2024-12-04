@@ -1,10 +1,9 @@
-name: dashboard crypto
-description: "dashboard"
+name: essai
+description: "esai de dashboard"
 
 dependencies:
   flutter:
     sdk: flutter
-  flutter_icons: ^1.1.0
   http: ^0.13.4
   fl_chart: ^0.63.0
   intl: ^0.18.1
@@ -19,6 +18,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+flutter:
+  uses-material-design: true
 
 environment:
   sdk: '>=3.5.0'
