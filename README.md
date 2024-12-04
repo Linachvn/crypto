@@ -1,6 +1,7 @@
 # cryptomonnaie
 
 Dashboard Cryptomonnaie
+![Vue d'ensemble du dashboard](https://github.com/user-attachments/assets/253ea6f5-f80a-449a-9f70-f69fb7f85aff)
 
 ## Getting Started
 
