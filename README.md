@@ -1,6 +1,6 @@
 # cryptomonnaie
 
-A new Flutter project.
+Dashboard Cryptomonnaie
 
 ## Getting Started
 
