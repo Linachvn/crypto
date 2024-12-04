@@ -1,4 +1,4 @@
-# Dashboard Cryptomonnaie
+# Dashboard Cryptomonnaie - Nursoo Ryan, Blancke Ines, Rakotonanahary Dorian, Chauvin Lina
 
 ![Vue d'ensemble du dashboard](https://github.com/user-attachments/assets/253ea6f5-f80a-449a-9f70-f69fb7f85aff)
 ![Menu déroulant](https://github.com/user-attachments/assets/db49e3e2-9693-4d3a-822d-d33902456bd8)
