@@ -49,6 +49,22 @@ class _DashboardScreenState extends State<DashboardScreen> {
     }
   }
 
+  int _getTitleInterval() {
+    switch (selectedPeriod) {
+      case '1':
+        return 12; // Toutes les 3 heures pour 24h
+      case '7':
+        return 6; // Tous les 6 points pour 7 jours
+      case '30':
+        return 30; // Tous les 8 points pour 30 jours
+      case '365':
+        return 15; // Tous les 15 points pour 1 an
+      default:
+        return 3;
+    }
+  }
+
+
   final Map<String, String> periods = {
     '1': '24h',
     '7': '7 jours',
@@ -70,7 +86,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Erreur : ${e.toString()}')),
+          SnackBar(
+            content: Text('Erreur de chargement des données. Vérifiez votre connexion.'),
+            duration: Duration(seconds: 3),
+            action: SnackBarAction(
+              label: 'Réessayer',
+              onPressed: _loadData,
+            ),
+          ),
         );
       }
     } finally {
@@ -127,7 +150,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           'Crypto Dashboard',
           style: TextStyle(
             fontFamily: 'Montserrat', // Vous pouvez utiliser une autre police ici
-            color: Colors.blueGrey,
+            color: Colors.white,
             fontSize: 28, // Taille du texte légèrement plus grande
             fontWeight: FontWeight.w700, // Police plus grasse
             letterSpacing: 1.5, // Espace entre les lettres pour un effet moderne
@@ -304,15 +327,36 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         bottomTitles: AxisTitles(
                           sideTitles: SideTitles(
                             showTitles: true,
+                            interval: 1,
                             getTitlesWidget: (value, meta) {
-                              if (value.toInt() >= 0 && value.toInt() < cryptoData.length) {
-                                return Text(
-                                  DateFormat('MM/dd').format(cryptoData[value.toInt()].date),
-                                  style: const TextStyle(
-                                    color: Color(0xFF68737d),
-                                    fontSize: 12,
-                                  ),
-                                );
+                              if (value.toInt() < 0 || value.toInt() >= cryptoData.length) {
+                                return const Text('');
+                              }
+
+                              // Sélectionner un interval de display basé sur la période
+                              if (value.toInt() % _getTitleInterval() == 0) {
+                                switch (selectedPeriod) {
+                                  case '1': // 24 heures
+                                    return Text(
+                                      DateFormat('HH:mm').format(cryptoData[value.toInt()].date),
+                                      style: const TextStyle(
+                                        color: Color(0xFF68737d),
+                                        fontSize: 10,
+                                      ),
+                                    );
+                                  case '7': // 7 jours
+                                  case '30': // 30 jours
+                                  case '365': // 1 an
+                                    return Text(
+                                      DateFormat('dd/MM').format(cryptoData[value.toInt()].date),
+                                      style: const TextStyle(
+                                        color: Color(0xFF68737d),
+                                        fontSize: 10,
+                                      ),
+                                    );
+                                  default:
+                                    return const Text('');
+                                }
                               }
                               return const Text('');
                             },
@@ -505,4 +549,4 @@ class _DashboardScreenState extends State<DashboardScreen> {
       ),
     );
   }
-} // Fin de la classe _DashboardScreenState //BON CODE
+} // Fin de la classe _DashboardScreenState 
